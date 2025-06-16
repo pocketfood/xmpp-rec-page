@@ -1,0 +1,52 @@
+.movie-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    max-width: 600px;
+  }
+  
+  .movie-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .movie-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  
+  .movie-user {
+    background: #007acc;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+  
+  .movie-desc {
+    margin: 0.5rem 0;
+    font-style: italic;
+    color: #555;
+  }
+  
+  .movie-img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+  }
+  
+  .movie-delete {
+    margin-top: 0.5rem;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
