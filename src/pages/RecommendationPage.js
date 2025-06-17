@@ -11,6 +11,8 @@ export default function RecommendationPage() {
   const [desc, setDesc] = useState('');
   const [status, setStatus] = useState('');
   const [movies, setMovies] = useState([]);
+  const [itemCount, setItemCount] = useState(0);
+  const [userCounts, setUserCounts] = useState({});
 
   const ADMIN_USERNAMES = ['piff', 'matt', 'kevin'];
   const isAdmin = (username) => ADMIN_USERNAMES.includes(username);
@@ -69,7 +71,16 @@ export default function RecommendationPage() {
     try {
       await xmpp.send(stanza);
       setStatus(`🗑️ Removed ${itemId}`);
-      setMovies((prev) => prev.filter((m) => m.id !== itemId));
+      setMovies((prev) => {
+        const updated = prev.filter((m) => m.id !== itemId);
+        setItemCount(updated.length);
+        const counts = {};
+        updated.forEach((m) => {
+          if (m.user) counts[m.user] = (counts[m.user] || 0) + 1;
+        });
+        setUserCounts(counts);
+        return updated;
+      });
     } catch (err) {
       console.error('❌ Failed to delete item:', err);
       setStatus('❌ Delete failed. Check console.');
@@ -103,6 +114,12 @@ export default function RecommendationPage() {
           };
         });
         setMovies(parsed);
+        setItemCount(parsed.length);
+        const counts = {};
+        parsed.forEach((m) => {
+          if (m.user) counts[m.user] = (counts[m.user] || 0) + 1;
+        });
+        setUserCounts(counts);
       });
 
       try {
@@ -156,7 +173,16 @@ export default function RecommendationPage() {
       }).filter(Boolean);
 
       if (newMovies.length > 0) {
-        setMovies((prev) => [...prev, ...newMovies]);
+        setMovies((prev) => {
+          const updated = [...prev, ...newMovies];
+          setItemCount(updated.length);
+          const counts = {};
+          updated.forEach((m) => {
+            if (m.user) counts[m.user] = (counts[m.user] || 0) + 1;
+          });
+          setUserCounts(counts);
+          return updated;
+        });
       }
     };
 
@@ -170,6 +196,22 @@ export default function RecommendationPage() {
     <div style={{ padding: '2rem' }}>
       <h2>Recommend a Movie</h2>
       <p>Logged in as <b>{user}</b></p>
+      <p>Total submissions: <b>{itemCount}</b></p>
+
+      {Object.keys(userCounts).length > 0 && (
+        <div style={{ marginTop: '1rem' }}>
+          <h4>Top Contributors:</h4>
+          <ul>
+            {Object.entries(userCounts)
+              .sort((a, b) => b[1] - a[1])
+              .map(([name, count]) => (
+                <li key={name}>
+                  <strong>{name}</strong>: {count} {count === 1 ? 'entry' : 'entries'}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
 
       <Link to="/create-node">
         <button style={{ marginBottom: '1rem' }}>Create Node</button>
