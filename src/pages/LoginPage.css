@@ -1,0 +1,80 @@
+/* General resets for all pages */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Scoped only to the login view */
+  .login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    overflow: hidden; /* ✅ Scroll locked only on this page */
+  }
+  
+  .login-card {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+  }
+  
+  .login-image {
+    flex: 1;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .image-placeholder {
+    font-size: 4rem;
+    color: #ccc;
+  }
+  
+  .login-form {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .login-form h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .login-form input {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+  }
+  
+  .login-form button {
+    padding: 0.75rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background-color: #2980b9;
+  }
+  
