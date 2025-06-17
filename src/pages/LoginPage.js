@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useXMPP } from '../context/XMPPContext';
+import './LoginPage.css'; // 👈 new CSS file
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [server, setServer] = useState('');
-  const navigate = useNavigate();
   const { connect } = useXMPP();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -19,25 +20,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login with XMPP</h2>
-      <input
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username (without @domain)"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <input
-        value={server}
-        onChange={(e) => setServer(e.target.value)}
-        placeholder="Server (e.g. xmpp.example.com)"
-      />
-      <button onClick={handleLogin}>Login</button>
+    <div className="login-wrapper">
+      <div className="login-card">
+        <div className="login-image">
+          {/* You can swap this out with a logo or hero art later */}
+          <div className="image-placeholder">🎬</div>
+        </div>
+        <div className="login-form">
+          <h2>Movie Recommender</h2>
+          <input
+            placeholder="Username (without @domain)"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            placeholder="Server (e.g. xmpp.example.com)"
+            value={server}
+            onChange={(e) => setServer(e.target.value)}
+          />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      </div>
     </div>
   );
 }
