@@ -15,7 +15,10 @@ export default function RecommendationPage() {
   const [userCounts, setUserCounts] = useState({});
 
   const ADMIN_USERNAMES = ['piff', 'matt', 'kevin'];
-  const isAdmin = (username) => ADMIN_USERNAMES.includes(username);
+  const isAdmin = (username) => {
+    if (!username) return false;
+    return ADMIN_USERNAMES.includes(username.toLowerCase().trim());
+  };
 
   const handleSubmit = async () => {
     if (!xmpp || !user) {
@@ -256,7 +259,7 @@ export default function RecommendationPage() {
               </div>
               <div className="movie-desc">{movie.desc}</div>
               <img src={movie.image} alt={movie.title} className="movie-img" />
-              {(movie.user === user || isAdmin(user)) && (
+              {(movie.user?.toLowerCase().trim() === user?.toLowerCase().trim() || isAdmin(user?.toLowerCase().trim())) && (
                 <button className="movie-delete" onClick={() => deleteMovie(movie.id)}>
                   Remove
                 </button>
